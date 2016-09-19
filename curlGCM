@@ -1,0 +1,1 @@
+curl -X POST -d @filename.txt https://android.googleapis.com/gcm/send --header "Content-Type:application/json" Authorization:key= AIzaSyARzbpVdQlQrCVEK5dredIG9rOJz9518gw
