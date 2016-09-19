@@ -16,6 +16,7 @@
 		D871DDCF1CEE57F200666D21 /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D871DDCE1CEE57F200666D21 /* NewsDetailController.swift */; };
 		D8797E171D22335C00CC39DB /* NewsCategoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8797E161D22335C00CC39DB /* NewsCategoriesController.swift */; };
 		D87CEAD21D24639900666DD2 /* Blank52.png in Resources */ = {isa = PBXBuildFile; fileRef = D87CEAD11D24639900666DD2 /* Blank52.png */; };
+		D87CEAD41D26345300666DD2 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87CEAD31D26345300666DD2 /* LoginView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D871DDCE1CEE57F200666D21 /* NewsDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 		D8797E161D22335C00CC39DB /* NewsCategoriesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCategoriesController.swift; sourceTree = "<group>"; };
 		D87CEAD11D24639900666DD2 /* Blank52.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Blank52.png; path = ../../../../../Downloads/Blank52.png; sourceTree = "<group>"; };
+		D87CEAD31D26345300666DD2 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				D871DDB91CECF88900666D21 /* ViewController.swift */,
 				D87CEAD11D24639900666DD2 /* Blank52.png */,
 				D8797E161D22335C00CC39DB /* NewsCategoriesController.swift */,
+				D87CEAD31D26345300666DD2 /* LoginView.xib */,
 				D871DDCE1CEE57F200666D21 /* NewsDetailController.swift */,
 				D871DDBB1CECF88900666D21 /* Main.storyboard */,
 				D871DDBE1CECF88900666D21 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 				D871DDC21CECF88900666D21 /* LaunchScreen.storyboard in Resources */,
 				D87CEAD21D24639900666DD2 /* Blank52.png in Resources */,
 				D871DDBF1CECF88900666D21 /* Assets.xcassets in Resources */,
+				D87CEAD41D26345300666DD2 /* LoginView.xib in Resources */,
 				D871DDBD1CECF88900666D21 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
