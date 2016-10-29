@@ -58,29 +58,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func startScanning() {
-        print("SCANNING ...");
-        // locationManager.startUpdatingLocation()
-        
-        let uuid = NSUUID(UUIDString: "8DEEFBB9-F738-4297-8040-96668BB44281")
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "MyBeacon")
-        beaconRegion.notifyOnEntry = true;
-        beaconRegion.notifyOnExit = true;
-        beaconRegion.notifyEntryStateOnDisplay = true;
-        
-        locationManager.startMonitoringForRegion(beaconRegion)
-        locationManager.pausesLocationUpdatesAutomatically = false
-        // locationManager.startRangingBeaconsInRegion(beaconRegion)
-    }
-    
     
     func startStandardLocationService() {
         
         locationManager.delegate = self;
         
         locationManager.requestAlwaysAuthorization();
-        // locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        // locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         
         // locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         locationManager.distanceFilter = 1;
@@ -89,10 +74,10 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func stopRanging(sender: AnyObject) {
+    @IBAction func stopRanging(_ sender: AnyObject) {
         let monitoredRegions = locationManager.monitoredRegions
         for region in monitoredRegions {
-            locationManager.stopMonitoringForRegion(region)
+            locationManager.stopMonitoring(for: region)
         }
         
         

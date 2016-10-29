@@ -14,33 +14,34 @@ extension ViewController: CLLocationManagerDelegate {
     func setupBeacon() {
         
         locationManager.delegate = self
+        showLocalNotification(body: "setupBeacon")
         
-        let uuid = NSUUID(UUIDString: "8DEEFBB9-F738-4297-8040-96668BB44281")
+        let uuid = UUID(uuidString: "8DEEFBB9-F738-4297-8040-96668BB44281")
         let beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "MyBeacon")
         beaconRegion.notifyOnEntry = true;
         beaconRegion.notifyOnExit = true;
         beaconRegion.notifyEntryStateOnDisplay = true;
         
-        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startMonitoring(for: beaconRegion)
         locationManager.startUpdatingLocation()
-        locationManager.requestStateForRegion(beaconRegion)
+        locationManager.requestState(for: beaconRegion)
         locationManager.pausesLocationUpdatesAutomatically = false
         // locationManager.startRangingBeaconsInRegion(beaconRegion)
         
     }
     
-    func locationManager(manager: CLLocationManager,
+    func locationManager(_ manager: CLLocationManager,
                            didUpdateLocations locations: [CLLocation]) {
         // print("GOT LOC UPDATE \(locations[0].coordinate.latitude) \(locations[0].coordinate.longitude)")
         
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         print("STATUS CHANGE")
         switch status {
             
-        case .AuthorizedAlways:
+        case .authorizedAlways:
             // Starts the generation of updates that report the user’s current location.
             print("START UPDATE")
             locationManager.startUpdatingLocation()
@@ -51,82 +52,55 @@ extension ViewController: CLLocationManagerDelegate {
     }
     
     
-    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-        print("Started monitoring")
-        let notification = UILocalNotification()
-        notification.alertBody = "Started Monitoring"
-        notification.alertAction = "open"
-        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        notification.soundName = UILocalNotificationDefaultSoundName
-        // UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        showLocalNotification(body: "Started Monitoring")
         
-        
-        // manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
-        
-        locationManager.requestStateForRegion(region)
+        // locationManager.requestState(for: region)
     }
     
-    func locationManager(manager: CLLocationManager,
+    func locationManager(_ manager: CLLocationManager,
                          didEnterRegion region: CLRegion) {
         
         print("Entered Region")
-        
-        let notification = UILocalNotification()
-        notification.alertBody = "Entered Region"
-        notification.alertAction = "open"
-        // notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        notification.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-        
-        
+        showLocalNotification(body: "Entered Region")
     }
     
-    func locationManager(manager: CLLocationManager,
+    func locationManager(_ manager: CLLocationManager,
                          didExitRegion region: CLRegion) {
-        let notification = UILocalNotification()
-        
-        notification.alertBody = "Exited region"
-        notification.alertAction = "open"
-        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        notification.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        
+        showLocalNotification(body: "Exited region")
     }
     
-    func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         
-        let notification = UILocalNotification()
-        notification.alertBody = "Stop Ranging"
-        notification.alertAction = "open"
-        // notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        notification.soundName = UILocalNotificationDefaultSoundName
-        // UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         
-        if state == CLRegionState.Inside { //The user is inside the iBeacon range.
-            notification.alertBody = "Did DetermineState: Start Ranging"
-            notification.alertAction = "open"
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            locationManager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
+        if state == CLRegionState.inside { //The user is inside the iBeacon range.
+            showLocalNotification(body: "Inside")
+            // locationManager.startMonitoring(for: region as! CLBeaconRegion)
+            // showLocalNotification(body: "Did DetermineState: Start Ranging")
+            // locationManager.startRangingBeacons(in: region as! CLBeaconRegion)
         }
         else { //The user is outside the iBeacon range.
-           // UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-           // locationManager.stopRangingBeaconsInRegion(region as! CLBeaconRegion)
-            // TODO: removed beacons from dictionary
+            showLocalNotification(body: "Outside")
+            // locationManager.stopRangingBeacons(in: region as! CLBeaconRegion)
         }
+        locationManager.startMonitoring(for: region as! CLBeaconRegion)
+        locationManager.startRangingBeacons(in: region as! CLBeaconRegion)
+        // showLocalNotification(body: "Outside")
     }
     
-    func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        
-       // var beacon : CLBeacon
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
         for beacon in beacons {
             showBeaconInfo(beacon)
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
+        showLocalNotification(body: "StartRangingFailed + \(error.localizedDescription)")
+        
+    }
     
-    func showBeaconInfo(beacon: CLBeacon) {
+    func showBeaconInfo(_ beacon: CLBeacon) {
         let notification = UILocalNotification()
         notification.alertBody = "Unknown State"
         notification.alertAction = "open"
@@ -137,47 +111,28 @@ extension ViewController: CLLocationManagerDelegate {
         
         
         switch beacon.proximity {
-        case .Unknown:
-            self.view.backgroundColor = UIColor.grayColor()
-            notification.alertBody = "Unknown \(beacon.major): \(beacon.minor)"
-            // UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        case .unknown:
+            self.view.backgroundColor = UIColor.gray
+            showLocalNotification(body: "Unknown \(beacon.major): \(beacon.minor)")
             
-        case .Far:
-            self.view.backgroundColor = UIColor.blueColor()
-            let body = "Far \(beacon.major): \(beacon.minor)";
-            notification.alertBody = body
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            if(foundBeacons[body] == nil) { // show notification if not shown earlier
+        case .far:
+            self.view.backgroundColor = UIColor.blue
+            showLocalNotification(body: "Far \(beacon.major): \(beacon.minor)")
+            
+            // if(foundBeacons[body] == nil) { // show notification if not shown earlier
                //  UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            }
+            // }
             
-            foundBeacons.updateValue(body, forKey: body)
+            // foundBeacons.updateValue(body, forKey: body)
             
-        case .Near:
-            self.view.backgroundColor = UIColor.orangeColor()
-            let body = "Near \(beacon.major): \(beacon.minor)";
-            notification.alertBody = body
+        case .near:
+            self.view.backgroundColor = UIColor.orange
+            showLocalNotification(body: "Near \(beacon.major): \(beacon.minor)")
             
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            if(foundBeacons[body] == nil) { // show notification if not shown earlier
-                // UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            }
+        case .immediate:
+            self.view.backgroundColor = UIColor.red
+            showLocalNotification(body: "Immedidate \(beacon.major): \(beacon.minor)")
             
-            foundBeacons.updateValue(body, forKey: body)
-            
-        case .Immediate:
-            self.view.backgroundColor = UIColor.redColor()
-            
-            let body = "Immediate \(beacon.major): \(beacon.minor)";
-            notification.alertBody = body
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            
-            if(foundBeacons[body] == nil) { // show notification if not shown earlier
-                // UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            }
-            
-            foundBeacons.updateValue(body, forKey: body)
-
         }
         /*
         UIView.animateWithDuration(0.8) {
@@ -196,6 +151,13 @@ extension ViewController: CLLocationManagerDelegate {
             }
         }
  */
+    }
+    
+    func showLocalNotification(body: String) {
+        let notification = UILocalNotification()
+        notification.alertBody = body
+        notification.alertAction = "open"
+        UIApplication.shared.presentLocalNotificationNow(notification)
     }
 
 }
