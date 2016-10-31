@@ -74,6 +74,12 @@ class ViewController: UIViewController {
         
     }
     
+    func startSignificantLocationService() {
+        locationManager.delegate = self;
+        locationManager.startMonitoringSignificantLocationChanges();
+        
+    }
+    
     @IBAction func stopRanging(_ sender: AnyObject) {
         let monitoredRegions = locationManager.monitoredRegions
         for region in monitoredRegions {
