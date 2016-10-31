@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58AEBC2C1DC1294A0003B005 /* venues.json in Resources */ = {isa = PBXBuildFile; fileRef = 58AEBC2B1DC129490003B005 /* venues.json */; };
 		D84D86641D6AAD1100F0FB8B /* iBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D86631D6AAD1100F0FB8B /* iBeacon.swift */; };
 		D8E8DEA81D6A20C6002126C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8DEA71D6A20C6002126C5 /* AppDelegate.swift */; };
 		D8E8DEAA1D6A20C6002126C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8DEA91D6A20C6002126C5 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58AEBC2B1DC129490003B005 /* venues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = venues.json; path = ../../../../../../Documents/Phunware/Technical/venues.json; sourceTree = "<group>"; };
 		D84D86631D6AAD1100F0FB8B /* iBeacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iBeacon.swift; sourceTree = "<group>"; };
 		D8E8DEA41D6A20C6002126C5 /* BeaconsNearby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconsNearby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E8DEA71D6A20C6002126C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				D8E8DEA71D6A20C6002126C5 /* AppDelegate.swift */,
 				D8E8DEA91D6A20C6002126C5 /* ViewController.swift */,
 				D84D86631D6AAD1100F0FB8B /* iBeacon.swift */,
+				58AEBC2B1DC129490003B005 /* venues.json */,
 				D8E8DEAB1D6A20C7002126C5 /* Main.storyboard */,
 				D8E8DEAE1D6A20C7002126C5 /* Assets.xcassets */,
 				D8E8DEB01D6A20C7002126C5 /* LaunchScreen.storyboard */,
@@ -99,7 +102,8 @@
 				TargetAttributes = {
 					D8E8DEA31D6A20C6002126C5 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 6K3X7EKQV2;
+						DevelopmentTeam = 84CK77G588;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -135,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8E8DEB21D6A20C7002126C5 /* LaunchScreen.storyboard in Resources */,
+				58AEBC2C1DC1294A0003B005 /* venues.json in Resources */,
 				D8E8DEAF1D6A20C7002126C5 /* Assets.xcassets in Resources */,
 				D8E8DEAD1D6A20C7002126C5 /* Main.storyboard in Resources */,
 			);
@@ -264,9 +269,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BeaconsNearby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.navispin.BeaconsNearby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phunware.BeaconsNearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -278,9 +284,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BeaconsNearby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.navispin.BeaconsNearby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phunware.BeaconsNearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
