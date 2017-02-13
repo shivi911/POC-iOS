@@ -1,0 +1,15 @@
+{  
+   "aps":{
+      "alert":{
+         "body":"Acme message received from Johnny Appleseed",
+         "title":"Hello title"
+      },
+      "badge":1,
+      "content-available":1
+   },
+   "data":{
+      "title":"Game Request",
+      "body":"Bob wants to play poker",
+      "action-loc-key":"PLAY"
+   }
+}

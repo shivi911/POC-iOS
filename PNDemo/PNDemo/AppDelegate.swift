@@ -125,6 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             showAlertPopup(title: "didReceiveRemoteNotif", body: "Received Remote notif backgroundfetchResult - App launched from NotifTray")
         }
  */
+        print("APNS data  \(userInfo)")
         if ( application.applicationState == UIApplicationState.inactive ) {
             // Inactive - the user has tapped in the notification when app was closed or in background
             showAlertPopup(title: "didReceiveRemoteNotif", body: "Inactive - the user has tapped in the notification when app was closed or in background")
