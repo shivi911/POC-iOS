@@ -1,0 +1,18 @@
+{
+    "aps" : {
+        "alert" : "Its Notification with custom payload.",
+        "badge" : 1,
+        "content-available" : 1
+    },
+    "data" :{
+        "title" : "Game Request",
+        "body" : "Bob wants to play poker",
+        "action-loc-key" : "PLAY"
+    },
+
+}
+#Displayed in Notification center : Yes
+#Awake app to perform background task : No
+#Here data dictionary holds custom information whatever you want.
+#It will also display as normal notification with alert message
+#"Notification with custom payload".

@@ -1,0 +1,17 @@
+{
+    "aps" : {
+        "alert" : "Notification with custom payload",
+        "badge" : 1,
+        "content-available" : 1
+    },
+     "data" :{
+        "title" : "Game Request",
+        "body" : "Bob wants to play poker",
+        "action-loc-key" : "PLAY"
+     }
+}
+#Here comes a magic to show notification alert as well awake your app in background for
+#some task (Note : If its running in background not killed explicitly by user).
+#Just added an extra parameter "content-available" : 1 in payload.
+#Displayed in Notification center : Yes
+#Awake app to perform background task : Yes

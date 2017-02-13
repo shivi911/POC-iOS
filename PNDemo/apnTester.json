@@ -1,0 +1,7 @@
+{
+    "aps" : {
+        "alert" : "You received simple notification",
+        "badge" : 1,
+        "sound" : "default"
+    }
+}

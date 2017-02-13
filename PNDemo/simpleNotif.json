@@ -1,0 +1,12 @@
+{
+    "aps" : {
+        "alert" : "You received simple notification",
+        "badge" : 1,
+        "sound" : "default"
+    }
+}
+#Displayed in Notification center : Yes
+#Awake app to perform background task : No
+#app in background: didReceiveRemoteNotification not invoked
+#app in foreground:  didReceiveRemoteNotification not invoked, not diplayed in tray
+#app force quit: shown in tray; didReceiveRemoteNotification not invoked

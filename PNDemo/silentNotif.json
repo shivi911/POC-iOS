@@ -1,0 +1,10 @@
+{
+    "aps" : {
+        "content-available" : 1
+    }
+}
+#Displayed in Notification center : No
+#Awake app to perform background task : Yes
+#app in background: didReceiveRemoteNotification invoked
+#app in foreground:  didReceiveRemoteNotification not invoked, not diplayed in tray
+#app force quit: shown in tray; didReceiveRemoteNotification not invoked
