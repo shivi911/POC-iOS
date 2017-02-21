@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let center = UNUserNotificationCenter.current()
     var vc = ViewController()
     var fromNotifTray = false
+    let newsStore = NewsStore.sharedStore
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -86,39 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("APNs registration failed: \(error)")
     }
     
-    /*
-    
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        print("DEVICE TOKEN = \(deviceToken)")
-    }
-    
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print(error)
-    }
- */
-    
-    // Push notification received
-    
-    /*
-    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
-        // Print notification payload data
-        print("Push notification received: \(data)")
-
-        let alertController = UIAlertController(title: "Hello  Coders", message: "didReceiveRemote", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        
-        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-        
-        showLocalNotification(body:"Received Remote Notif")
-    }
- */
- 
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        showLocalNotification(body:"Received Remote Notif backgroundfetchresult")
+        // showLocalNotification(body:"Received Remote Notif backgroundfetchresult")
         /*
         if(fromNotifTray == true) {
             fromNotifTray = false
@@ -144,11 +117,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     
+        let aps = userInfo["aps"] as! [String: AnyObject]
+        createNewNewsItem(notificationDictionary: aps)
+        completionHandler(.newData)
         
-        completionHandler(UIBackgroundFetchResult.newData)
+        // completionHandler(UIBackgroundFetchResult.newData)
     }
     
     
+    
+    // MARK: Helpers
+    func createNewNewsItem(notificationDictionary:[String: AnyObject]) -> NewsItem? {
+        if let news = notificationDictionary["alert"] as? String {
+            let date = NSDate()
+            
+            let newsItem = NewsItem(title: news, date: date, isRead: false)
+            let newsStore = NewsStore.sharedStore
+            newsStore.addItem(newItem: newsItem)
+            
+            //NSNotificationCenter.defaultCenter().postNotificationName(NewsFeedTableViewController.RefreshNewsFeedNotification, object: self)
+            
+            print("No of alerts \(newsStore.items.count)");
+            return newsItem
+        }
+        return nil
+    }
+
     
     /*
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
@@ -176,6 +170,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // showLocalNotification(body:"Received Remote Notif backgroundfetchresult")
+        print("APP TERMINATED")
     }
 
     func showLocalNotification(body: String) {
@@ -208,23 +204,23 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // showLocalNotification(body:"willPresentNotification")
-        let alertController = UIAlertController(title: "Hello  Coders", message: "Will Present Notif", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
         
-        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+        showAlertPopup(title: "will Present userNotifCenter", body: "DID PRESENT")
+        
         print("User Info will Present = ",notification.request.content.userInfo)
-        completionHandler([.alert, .badge, .sound])
+        // completionHandler([.alert, .badge, .sound])
+        
+        completionHandler([]);
     }
     
     //Called to let your app know which action was selected by the user for a given notification.
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // showLocalNotification(body:"didReceiveNotification")
-        let alertController = UIAlertController(title: "Hello  Coders", message: "didReceive", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
         
-        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+        print("Did receive")
+        
+        showAlertPopup(title: "didReceive userNotifCenter", body: "DID RECEIVE")
+        
         print("User Info didReceive = ",response.notification.request.content.userInfo)
         completionHandler()
     }

@@ -12,16 +12,23 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Hello5"
+        self.navigationController?.title = "Hello"
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     
+    @IBOutlet var showMessages: UIView!
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func handleClick(_ sender: Any) {
+        self.performSegue(withIdentifier: "segueId", sender: self)
+    }
+    
     func showAlertPopup(title: String, body: String) {
         
         let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
